@@ -15,4 +15,7 @@ public class Usuarios {
     }
 
     // commit pra testar se eu (demari) mudei o author do git
+    // como mudar o autor e email do git?
+    // git config --global user.name "John Doe" --> configura nome
+    // git config --global user.email "john@doe.org" --> configura email
 }
