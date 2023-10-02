@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 
+import bean.Usuario;
+
 public class Usuarios {
     
 
