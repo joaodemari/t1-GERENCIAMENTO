@@ -10,6 +10,15 @@ public class Pedido {
 	private String status;
 	private ArrayList<Item> itens;
 	private double valTotal;
+
+	public Pedido(Usuario usuario, Date dtPedido, Date dtConclusao, String status, ArrayList<item> itens, double valTotal){
+		this.usuario=usuario; 
+		this.dtPedido=dtPedido; 
+		this.dtConclusao=dtConclusao;
+		this.status=status;
+		this.itens=itens;
+		this.valTotal=valTotal;
+	}
 	
 	public Usuario getUsuario() {
 		return usuario;
