@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 import bean.Usuario;
 
 public class Usuarios {
@@ -11,9 +10,10 @@ public class Usuarios {
         usuarios = new ArrayList<Usuario>();
     }
 
+
+
     public boolean addUser(Usuario u){
         return usuarios.add(u);
-
     }
 
     // commit pra testar se eu (demari) mudei o author do git
