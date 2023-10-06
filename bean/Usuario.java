@@ -1,26 +1,12 @@
 package bean;
-public class Usuario {
-    private String nome;
-    private String id;
-    private boolean isLogged;
 
-    public Usuario(String nome, String id){
-        this.nome = nome;
-        this.id = id;
-        this.isLogged = false;
-    }
+public interface Usuario {
 
-    public void LoginUser(){
-        isLogged = true;
-    }
+    public void LoginUser();
 
-    public void Logout(){
-        isLogged = false;
-    }
+    public void Logout();
 
-    public String getNome(){
-        return nome;
-    }
+    public String getNome();
 
     // Criei uma classe usuário de exemplo que pode estar logado ou não
 }
