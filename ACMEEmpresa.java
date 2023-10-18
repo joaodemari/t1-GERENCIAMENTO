@@ -203,25 +203,11 @@ public class ACMEEmpresa {
      * }
      **/
 
-    /**
-     * private void buscarPedidosPorFuncionario(Usuario i) {
-     * if(i instanceof Funcionario){
-     * Funcionario f = (Funcionario) i;
-     * System.out.println("Pedidos encontrados por funcionário solicitante:");
-     * for(Pedido pedido : pedidos.getPedidos()){
-     * if(pedido.getUsuario().equals(i)){
-     * System.out.println("Detalhes do pedido: ");
-     * System.out.println("Data: " + pedido.getDtPedido());
-     * System.out.println("Status: " + pedido.getStatus());
-     * System.out.println("Itens do pedido: " + pedido.getItens());
-     * 
-     * }
-     * }
-     * } else {
-     * System.out.println("Usuário não é um funcionário. ");
-     * }
-     * }
-     **/
+    private void buscarPedidosPorFuncionario(){
+        System.out.println("Digite o id do funcionário");
+        String id = entrada.nextLine();
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(id);
+    }
 
     private void buscarPedidosPorItem() {
         System.out.println("Digite o nome do item:");

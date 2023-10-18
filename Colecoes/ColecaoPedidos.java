@@ -1,8 +1,11 @@
 package Colecoes;
 
-import bean.Item;
+
 import java.util.ArrayList;
+import Colecoes.ColecaoUsuarios;
+import bean.Item;
 import bean.Pedido;
+import bean.Usuario;
 
 public class ColecaoPedidos {
 
@@ -26,6 +29,19 @@ public class ColecaoPedidos {
             ArrayList<Item> itens = pedido.getItens();
             for (Item it : itens) {
                 if (it.getNome().contains(nome)) {
+                    retorno.add(pedido);
+                }
+            }
+        }
+        return retorno;
+    }
+
+    public ArrayList<Pedido> buscaPedidoPorFuncionario(String id) {
+        ArrayList<Pedido> retorno = new ArrayList<>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            for (Usuario u : usuarios) {
+                if (pedido.getUsuario().getId().equals(u.getId())) {
                     retorno.add(pedido);
                 }
             }
