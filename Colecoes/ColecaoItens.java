@@ -1,7 +1,6 @@
 package Colecoes;
 
 import java.util.ArrayList;
-
 import bean.Item;
 
 public class ColecaoItens {
@@ -19,4 +18,12 @@ public class ColecaoItens {
         return itens;
     }
 
+    public Item buscarItemPorNome(String nome) {
+        for (Item i : itens) {
+            if (i.getNome().equals(nome)) {
+                return i;
+            }
+        }
+        return null;
+    }
 }

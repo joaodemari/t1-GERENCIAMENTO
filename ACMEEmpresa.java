@@ -1,13 +1,16 @@
 import java.util.Date;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import Colecoes.ColecaoItens;
 import Colecoes.ColecaoPedidos;
 import Colecoes.ColecaoUsuarios;
+
 import bean.Administrador;
 import bean.Item;
 import bean.Pedido;
 import bean.Usuario;
+import bean.Funcionario;
 
 public class ACMEEmpresa {
     private Scanner entrada;
@@ -139,12 +142,12 @@ public class ACMEEmpresa {
                 case 0:
                     System.out.println("Voltando ao Menu Anterior (Administrador)...");
                     break;
-                case 1:
-                    listarPedidosEntreDatas();
-                    break;
-                case 2:
-                    buscarPedidosPorFuncionario();
-                    break;
+      //          case 1:
+      //              listarPedidosEntreDatas(Date dataFim, Date dataInicio);
+                //             break;
+     //           case 2:
+       //             buscarPedidosPorFuncionario();
+         //           break;
                 case 3:
                     buscarPedidosPorItem();
                     break;
@@ -157,19 +160,42 @@ public class ACMEEmpresa {
         }
     }
 
-    private void listarPedidosEntreDatas() {
-        // TODO: Implementar lógica de listagem de pedidos entre duas datas
-        System.out.println("Lista de pedidos entre duas datas:");
-    }
+/**    private ArrayList<ColecaoPedidos> listarPedidosEntreDatas(Date dataInicio, Date dataFim) {
+        ArrayList pedidosData = new ArrayList();
+        if(dataInicio.compareTo(dataFim) > 0){
+            System.out.println("Datas inválidas.");
+            return pedidosData;
+        }
+        for(Pedido p : pedidos.getPedidos()){
+            if(p.getDtConclusao().compareTo(dataInicio) >= 0 && p.getDtConclusao().compareTo(dataFim) <= 0){
+                pedidosData.add(p);
+            }
+        }
+        return pedidosData;
+        } **/
 
-    private void buscarPedidosPorFuncionario() {
-        // TODO: Implementar lógica de busca de pedidos por funcionário solicitante
-        System.out.println("Pedidos encontrados por funcionário solicitante:");
-    }
+/**    private void buscarPedidosPorFuncionario(Usuario i) {
+        if(i instanceof Funcionario){
+            Funcionario f = (Funcionario) i;
+            System.out.println("Pedidos encontrados por funcionário solicitante:");
+            for(Pedido pedido : pedidos.getPedidos()){
+                if(pedido.getUsuario().equals(i)){
+                    System.out.println("Detalhes do pedido: ");
+                    System.out.println("Data: " + pedido.getDtPedido());
+                    System.out.println("Status: " + pedido.getStatus());
+                    System.out.println("Itens do pedido: " + pedido.getItens());
 
-    private void buscarPedidosPorItem() {
-        // TODO: Implementar lógica de busca de pedidos pela descrição de um item
-        System.out.println("Pedidos encontrados pela descrição de um item:");
+                }
+            }
+        } else {
+            System.out.println("Usuário não é um funcionário. ");
+        }
+        } **/
+
+    private void buscarPedidosPorItem(){
+        System.out.println("Digite o nome do item.");
+        String nome = entrada.nextLine();
+        pedidos.buscaPedidosporItem(nome);
     }
 
     private void visualizarDetalhesPedido() {
