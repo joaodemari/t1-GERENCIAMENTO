@@ -1,6 +1,5 @@
 package Colecoes;
 
-
 import java.util.ArrayList;
 import Colecoes.ColecaoUsuarios;
 import bean.Item;
@@ -36,9 +35,8 @@ public class ColecaoPedidos {
         return retorno;
     }
 
-    public ArrayList<Pedido> buscaPedidoPorFuncionario(String id) {
+    public ArrayList<Pedido> buscaPedidoPorFuncionario(ArrayList<Usuario> usuarios, String id) {
         ArrayList<Pedido> retorno = new ArrayList<>();
-        ArrayList<Usuario> usuarios = new ArrayList<>();
         for (Pedido pedido : pedidos) {
             for (Usuario u : usuarios) {
                 if (pedido.getUsuario().getId().equals(u.getId())) {
