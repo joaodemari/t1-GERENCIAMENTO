@@ -21,17 +21,17 @@ public class ColecaoPedidos {
     }
 
     public ArrayList<Pedido> buscaPedidosPorItem(String nome) {
-        System.out.println("Pedidos encontrados pela descrição de um item:");
         ArrayList<Pedido> retorno = new ArrayList<>();
         for (Pedido pedido : pedidos) {
+            System.out.println("Pedido: " + pedido.getUsuario().getNome());
             ArrayList<Item> itens = pedido.getItens();
             for (Item it : itens) {
-                if (it.getNome().equals(nome)) {
+                System.out.println("Item: " + it.getNome());
+                if (it.getNome().contains(nome)) {
                     retorno.add(pedido);
-                    break;
                 }
             }
         }
-        return null;
+        return pedidos;
     }
 }
