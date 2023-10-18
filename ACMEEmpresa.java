@@ -157,14 +157,37 @@ public class ACMEEmpresa {
         }
     }
 
-    private void listarPedidosEntreDatas() {
-        // TODO: Implementar lógica de listagem de pedidos entre duas datas
-        System.out.println("Lista de pedidos entre duas datas:");
+    private ArrayList<Pedidos> listarPedidosEntreDatas(Date dataInicio, Date dataFim) {
+        ArrayList pedidosData = new ArrayList();
+        if(dataInicio.compareTo(dataFim) > 0){
+            System.out.println("Datas inválidas.");
+            return pedidosData;
+        }
+        for(Pedido p: Pedido){
+            if(p.getDtConclusao().compareTo(dataInicio) >= 0 && p.getDtConclusao().compareTo(dataFim) <= 0){
+                pedidosData.add(p);
+            }
+        }
+        return pedidosData;
     }
 
-    private void buscarPedidosPorFuncionario() {
-        // TODO: Implementar lógica de busca de pedidos por funcionário solicitante
-        System.out.println("Pedidos encontrados por funcionário solicitante:");
+    private void buscarPedidosPorFuncionario(Usuario i) {
+        if(Usuario instanceof Funcionario){
+            Funcionario f = (Funcionario) i;
+             System.out.println("Pedidos encontrados por funcionário solicitante:");
+             for(Pedido pedido: pedidos){
+                if(pedido.getUsuario().equals(i)){
+                    System.out.println("Detalhes do pedido: ");
+                    System.out.println("Data: " + pedido.getDtPedido());
+                    System.out.println("Status: " + pedido.getStatus());
+                    System.out.println("Itens do pedido: " + pedido.getItens());
+                    
+                }
+             }
+
+        } else {
+            SSystem.out.println("Usuário não é um funcionário. ")
+        }
     }
 
     private void buscarPedidosPorItem() {
@@ -172,7 +195,8 @@ public class ACMEEmpresa {
         System.out.println("Pedidos encontrados pela descrição de um item:");
     }
 
-    private void visualizarDetalhesPedido() {
+    private void visualizarDetalhesPedido(ColecaoPedidos p) {
+
         // TODO: Implementar lógica de visualização de detalhes de um pedido para
         // aprovação ou rejeição
         System.out.println("Detalhes do pedido:");
