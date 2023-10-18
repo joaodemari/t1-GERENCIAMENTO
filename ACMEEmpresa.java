@@ -186,7 +186,7 @@ public class ACMEEmpresa {
              }
 
         } else {
-            SSystem.out.println("Usuário não é um funcionário. ")
+            System.out.println("Usuário não é um funcionário. ")
         }
     }
 
@@ -196,9 +196,7 @@ public class ACMEEmpresa {
     }
 
     private void visualizarDetalhesPedido(ColecaoPedidos p) {
-
-        // TODO: Implementar lógica de visualização de detalhes de um pedido para
-        // aprovação ou rejeição
-        System.out.println("Detalhes do pedido:");
+        
+        System.out.println("Detalhes do pedido:"+ getPedidos());
     }
 }
