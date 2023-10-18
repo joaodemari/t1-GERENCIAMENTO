@@ -232,7 +232,9 @@ public class ACMEEmpresa {
         } else {
             System.out.println("Pedidos encontrados:");
             for (Pedido p : Busca) {
-                System.out.println("Detalhes do pedido: ");
+                System.out.println("------------------------------------------------");
+                System.out.println("Detalhes do pedido de" + p.getUsuario().getNome());
+                System.out.println("------------------------------------------------");
                 System.out.println("Data: " + p.getDtPedido());
                 System.out.println("Status: " + p.getStatus());
                 ArrayList<Item> itens = p.getItens();
