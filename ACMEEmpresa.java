@@ -1,6 +1,9 @@
 import java.util.Date;
 import java.util.Scanner;
 
+import Colecoes.ColecaoItens;
+import Colecoes.ColecaoPedidos;
+import Colecoes.ColecaoUsuarios;
 import bean.Administrador;
 import bean.Item;
 import bean.Pedido;
@@ -8,13 +11,13 @@ import bean.Usuario;
 
 public class ACMEEmpresa {
     private Scanner entrada;
-    private Usuarios usuarios;
+    private ColecaoUsuarios usuarios;
     private Usuario Logado;
     private ColecaoPedidos pedidos;
 
     public ACMEEmpresa() {
         entrada = new Scanner(System.in);
-        usuarios = new Usuarios();
+        usuarios = new ColecaoUsuarios();
         pedidos = new ColecaoPedidos();
         this.Logado = null;
     }

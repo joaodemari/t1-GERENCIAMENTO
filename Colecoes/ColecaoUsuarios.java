@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import bean.Usuario;
 
-public class Usuarios {
+public class ColecaoUsuarios {
 
     private ArrayList<Usuario> usuarios;
 
-    public Usuarios() {
+    public ColecaoUsuarios() {
         usuarios = new ArrayList<Usuario>();
     }
 
