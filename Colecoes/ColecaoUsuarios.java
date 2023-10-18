@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 import bean.Usuario;
 
-public class Usuarios {
+public class ColecaoUsuarios {
 
     private ArrayList<Usuario> usuarios;
 
-    public Usuarios() {
+    public ColecaoUsuarios() {
         usuarios = new ArrayList<Usuario>();
     }
 
@@ -15,6 +15,15 @@ public class Usuarios {
 
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
+    }
+
+    public Usuario buscarPorNome(String nome) {
+        for (Usuario u : usuarios) {
+            if (u.getNome().equals(nome)) {
+                return u;
+            }
+        }
+        return null;
     }
     // commit pra testar se eu (demari) mudei o author do git
 }
