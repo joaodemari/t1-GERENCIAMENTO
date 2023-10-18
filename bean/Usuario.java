@@ -1,26 +1,26 @@
 package bean;
+
 public class Usuario {
     private String nome;
     private String id;
-    private boolean isLogged;
+    private String senha;
 
-    public Usuario(String nome, String id){
+    public Usuario(String nome, String id, String senha) {
         this.nome = nome;
         this.id = id;
-        this.isLogged = false;
+        this.senha = senha;
     }
 
-    public void LoginUser(){
-        isLogged = true;
-    }
-
-    public void Logout(){
-        isLogged = false;
-    }
-
-    public String getNome(){
+    public String getNome() {
         return nome;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
     // Criei uma classe usuário de exemplo que pode estar logado ou não
 }
