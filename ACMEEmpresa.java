@@ -170,9 +170,9 @@ public class ACMEEmpresa {
                 // case 1:
                 // listarPedidosEntreDatas(Date dataFim, Date dataInicio);
                 // break;
-                // case 2:
-                // buscarPedidosPorFuncionario();
-                // break;
+                case 2:
+                    buscarPedidosPorFuncionario();
+                    break;
                 case 3:
                     buscarPedidosPorItem();
                     break;
@@ -203,10 +203,26 @@ public class ACMEEmpresa {
      * }
      **/
 
-    private void buscarPedidosPorFuncionario(){
+    private void buscarPedidosPorFuncionario() {
         System.out.println("Digite o id do funcionário");
-        String id = entrada.nextLine();
-        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(id);
+        String id = entrada.next();
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(usuarios.getUsuarios(), id);
+        if (Busca == null) {
+            System.out.println("Nenhum pedido encontrado.");
+        } else {
+            System.out.println("Pedidos encontrados:");
+            for (Pedido p : Busca) {
+                System.out.println("------------------------------------------------");
+                System.out.println("Detalhes do pedido de" + p.getUsuario().getNome());
+                System.out.println("------------------------------------------------");
+                System.out.println("Data: " + p.getDtPedido());
+                System.out.println("Status: " + p.getStatus());
+                ArrayList<Item> itens = p.getItens();
+                for (Item q : itens) {
+                    System.out.println("Itens do pedido: " + q.getNome());
+                }
+            }
+        }
     }
 
     private void buscarPedidosPorItem() {
