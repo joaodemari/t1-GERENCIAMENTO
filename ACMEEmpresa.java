@@ -1,16 +1,21 @@
+import java.util.Date;
 import java.util.Scanner;
 
 import bean.Administrador;
+import bean.Item;
+import bean.Pedido;
 import bean.Usuario;
 
 public class ACMEEmpresa {
     private Scanner entrada;
     private Usuarios usuarios;
     private Usuario Logado;
+    private ColecaoPedidos pedidos;
 
     public ACMEEmpresa() {
         entrada = new Scanner(System.in);
         usuarios = new Usuarios();
+        pedidos = new ColecaoPedidos();
         this.Logado = null;
     }
 
@@ -32,34 +37,38 @@ public class ACMEEmpresa {
                     System.out.println("Saindo do sistema...");
                     break;
                 case 1:
-                    Usuario found = null;
-                    do {
-                        System.out.println("Digite seu id:");
-                        String id = entrada.next();
-
-                        for (Usuario u : usuarios.getUsuarios()) {
-                            if (u.getId().equals(id)) {
-                                found = u;
-                                System.out.println("Usuário encontrado!");
-                                break;
-                            }
-                        }
-                        if (found == null)
-                            System.out.println("Usuário não encontrado! Tente novamente.");
-                    } while (found == null);
-                    System.out.println("Digite sua senha:");
-                    String senha = entrada.next();
-                    if (found.getSenha().equals(senha)) {
-                        System.out.println("Login efetuado com sucesso!");
-                        this.Logado = found;
-                        menuPrincipal();
-                    } else {
-                        System.out.println("Senha incorreta! Tente novamente.");
-                    }
+                    fazerLogin();
                     break;
                 default:
                     System.out.println("Entrada inválida.");
             }
+        }
+    }
+
+    private void fazerLogin() {
+        Usuario found = null;
+        do {
+            System.out.println("Digite seu id:");
+            String id = entrada.next();
+
+            for (Usuario u : usuarios.getUsuarios()) {
+                if (u.getId().equals(id)) {
+                    found = u;
+                    System.out.println("Usuário encontrado!");
+                    break;
+                }
+            }
+            if (found == null)
+                System.out.println("Usuário não encontrado! Tente novamente.");
+        } while (found == null);
+        System.out.println("Digite sua senha:");
+        String senha = entrada.next();
+        if (found.getSenha().equals(senha)) {
+            System.out.println("Login efetuado com sucesso!");
+            this.Logado = found;
+            menuPrincipal();
+        } else {
+            System.out.println("Senha incorreta! Tente novamente.");
         }
     }
 
@@ -87,7 +96,30 @@ public class ACMEEmpresa {
     }
 
     private void registrarPedido() {
-        // TODO: Implementar lógica de registro de pedido
+        System.out.println("ADICIONAR ITENS AO SEU PEDIDO");
+        ColecaoItens itensPedido = new ColecaoItens();
+        while (true) {
+            System.out.println("Digite o nome do item:");
+            String nome = entrada.next();
+            System.out.println("Digite a descrição do item:");
+            String descricao = entrada.next();
+            System.out.println("Digite o valor do item:");
+            double valor = entrada.nextDouble();
+            System.out.println("Digite a quantidade do item:");
+            int quantidade = entrada.nextInt();
+            Item i = new Item(nome, descricao, valor, quantidade);
+
+            itensPedido.addItem(i);
+            System.out.println("Item adicionado com sucesso!");
+            System.out.println("Deseja adicionar mais itens? [S/N]");
+            String resp = entrada.next();
+            if (resp.equals("N"))
+                break;
+        }
+        double valorTotal = 0.0;
+        Date d = new Date();
+        Pedido p = new Pedido(Logado, d, itensPedido.getItens(), valorTotal);
+        pedidos.addPedido(p);
         System.out.println("Pedido registrado com sucesso!");
     }
 
