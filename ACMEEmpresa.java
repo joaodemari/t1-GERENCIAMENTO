@@ -26,8 +26,33 @@ public class ACMEEmpresa {
     }
 
     public void executa() {
+        // Criando alguns objetos de exemplo
         Administrador a = new Administrador("João", "123", "123456");
+        Funcionario f1 = new Funcionario("Maria", "456", "789012");
+        Funcionario f2 = new Funcionario("Pedro", "789", "345678");
+        Item i1 = new Item("Caneta", "Caneta esferográfica azul", 1.5, 10);
+        Item i2 = new Item("Caderno", "Caderno universitário 100 folhas", 10.0, 5);
+        Item i3 = new Item("Lápis", "Lápis preto nº2", 0.5, 20);
+        Item i4 = new Item("Borracha", "Borracha branca", 0.3, 15);
+        Item i5 = new Item("Mochila", "Mochila escolar", 50.0, 2);
+        Item i6 = new Item("Estojo", "Estojo escolar", 5.0, 5);
+        ColecaoItens itens1 = new ColecaoItens();
+        itens1.addItem(i1);
+        itens1.addItem(i2);
+        itens1.addItem(i3);
+        ColecaoItens itens2 = new ColecaoItens();
+        itens2.addItem(i4);
+        itens2.addItem(i5);
+        itens2.addItem(i6);
+        Date d1 = new Date();
+        Date d2 = new Date(d1.getTime() + 3600000);
+        Pedido p1 = new Pedido(f1, d1, itens1.getItens(), 0.0);
+        Pedido p2 = new Pedido(f2, d2, itens2.getItens(), 0.0);
+        pedidos.addPedido(p1);
+        pedidos.addPedido(p2);
         usuarios.addUser(a);
+        usuarios.addUser(f1);
+        usuarios.addUser(f2);
         menuLogin();
     }
 
@@ -142,12 +167,12 @@ public class ACMEEmpresa {
                 case 0:
                     System.out.println("Voltando ao Menu Anterior (Administrador)...");
                     break;
-      //          case 1:
-      //              listarPedidosEntreDatas(Date dataFim, Date dataInicio);
-                //             break;
-     //           case 2:
-       //             buscarPedidosPorFuncionario();
-         //           break;
+                // case 1:
+                // listarPedidosEntreDatas(Date dataFim, Date dataInicio);
+                // break;
+                // case 2:
+                // buscarPedidosPorFuncionario();
+                // break;
                 case 3:
                     buscarPedidosPorItem();
                     break;
@@ -160,42 +185,64 @@ public class ACMEEmpresa {
         }
     }
 
-/**    private ArrayList<ColecaoPedidos> listarPedidosEntreDatas(Date dataInicio, Date dataFim) {
-        ArrayList pedidosData = new ArrayList();
-        if(dataInicio.compareTo(dataFim) > 0){
-            System.out.println("Datas inválidas.");
-            return pedidosData;
-        }
-        for(Pedido p : pedidos.getPedidos()){
-            if(p.getDtConclusao().compareTo(dataInicio) >= 0 && p.getDtConclusao().compareTo(dataFim) <= 0){
-                pedidosData.add(p);
-            }
-        }
-        return pedidosData;
-        } **/
+    /**
+     * private ArrayList<ColecaoPedidos> listarPedidosEntreDatas(Date dataInicio,
+     * Date dataFim) {
+     * ArrayList pedidosData = new ArrayList();
+     * if(dataInicio.compareTo(dataFim) > 0){
+     * System.out.println("Datas inválidas.");
+     * return pedidosData;
+     * }
+     * for(Pedido p : pedidos.getPedidos()){
+     * if(p.getDtConclusao().compareTo(dataInicio) >= 0 &&
+     * p.getDtConclusao().compareTo(dataFim) <= 0){
+     * pedidosData.add(p);
+     * }
+     * }
+     * return pedidosData;
+     * }
+     **/
 
-/**    private void buscarPedidosPorFuncionario(Usuario i) {
-        if(i instanceof Funcionario){
-            Funcionario f = (Funcionario) i;
-            System.out.println("Pedidos encontrados por funcionário solicitante:");
-            for(Pedido pedido : pedidos.getPedidos()){
-                if(pedido.getUsuario().equals(i)){
-                    System.out.println("Detalhes do pedido: ");
-                    System.out.println("Data: " + pedido.getDtPedido());
-                    System.out.println("Status: " + pedido.getStatus());
-                    System.out.println("Itens do pedido: " + pedido.getItens());
+    /**
+     * private void buscarPedidosPorFuncionario(Usuario i) {
+     * if(i instanceof Funcionario){
+     * Funcionario f = (Funcionario) i;
+     * System.out.println("Pedidos encontrados por funcionário solicitante:");
+     * for(Pedido pedido : pedidos.getPedidos()){
+     * if(pedido.getUsuario().equals(i)){
+     * System.out.println("Detalhes do pedido: ");
+     * System.out.println("Data: " + pedido.getDtPedido());
+     * System.out.println("Status: " + pedido.getStatus());
+     * System.out.println("Itens do pedido: " + pedido.getItens());
+     * 
+     * }
+     * }
+     * } else {
+     * System.out.println("Usuário não é um funcionário. ");
+     * }
+     * }
+     **/
 
+    private void buscarPedidosPorItem() {
+        System.out.println("Digite o nome do item:");
+        String nome = entrada.next();
+        ArrayList<Pedido> Busca = pedidos.buscaPedidosPorItem(nome);
+        if (Busca == null) {
+            System.out.println("Nenhum pedido encontrado.");
+        } else {
+            System.out.println("Pedidos encontrados:");
+            for (Pedido p : Busca) {
+                System.out.println("------------------------------------------------");
+                System.out.println("Detalhes do pedido de" + p.getUsuario().getNome());
+                System.out.println("------------------------------------------------");
+                System.out.println("Data: " + p.getDtPedido());
+                System.out.println("Status: " + p.getStatus());
+                ArrayList<Item> itens = p.getItens();
+                for (Item q : itens) {
+                    System.out.println("Itens do pedido: " + q.getNome());
                 }
             }
-        } else {
-            System.out.println("Usuário não é um funcionário. ");
         }
-        } **/
-
-    private void buscarPedidosPorItem(){
-        System.out.println("Digite o nome do item.");
-        String nome = entrada.nextLine();
-        pedidos.buscaPedidosporItem(nome);
     }
 
     private void visualizarDetalhesPedido() {
