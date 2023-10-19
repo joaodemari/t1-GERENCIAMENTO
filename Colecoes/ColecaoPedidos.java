@@ -47,15 +47,15 @@ public class ColecaoPedidos {
         return retorno;
     }
 
-    public ArrayList<Pedido> buscaPedidoPorNumero(int nPedido) {
-        ArrayList<Pedido> retorno = new ArrayList<>();
+    public Pedido buscaPedidoPorNumero(String id) {
+        Pedido p = null;
         for (Pedido pedido : pedidos) {
-            for (Pedido nPedido : pedidos) {
-                if (pedido.getNPedido()) {
-                    retorno.add(pedido);
-                }
+            if (pedido.getId().equals(id)) {
+               p = pedido;
+               break;
             }
         }
-        return retorno;
+        return p;
     }
+
 }
