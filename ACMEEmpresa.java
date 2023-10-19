@@ -248,8 +248,30 @@ public class ACMEEmpresa {
     }
 
     private void visualizarDetalhesPedido() {
-        // TODO: Implementar lógica de visualização de detalhes de um pedido para
-        // aprovação ou rejeição
-        System.out.println("Detalhes do pedido:");
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId());
+        int count =1;
+        for (Pedido b : Busca) {
+            System.out.println("Número do pedido: " + b.getNPedido());
+            System.out.println("Funcionário que cadastrou: " + b.getUsuario());
+            System.out.println("Data: " + b.getDtPedido());
+            System.out.println("Status: " + b.getStatus());
+            System.out.println("Valor total do pedido: " + b.getValTotal());
+            ArrayList<Item> itens = b.getItens();
+            for (Item q : itens) {
+                System.out.println("Itens do pedido: " + q.getNome());
+            }
+            count++;
+        }
+
+        System.out.println("Digite o número do pedido que deseja atualizar:");
+        int proxNum = entrada.nextInt();
+
+        if(this.nPedido==proxNum){
+            Pedido pedidoBuscado = buscaPedidoPorNumero(proxNum);
+            
+            return pedidoBuscado;
+        }else{
+            return "Pedido não encontrado";
+        }
     }
 }

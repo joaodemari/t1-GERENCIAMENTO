@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Pedido {
+	private int nPedido;
 	private Usuario usuario;
 	private Date dtPedido;
 	private Date dtConclusao;
@@ -11,7 +12,8 @@ public class Pedido {
 	private ArrayList<Item> itens;
 	private double valTotal;
 
-	public Pedido(Usuario usuario, Date dtPedido, Date dtConclusao, String status, ArrayList<Item> itens, double valTotal){
+	public Pedido(int nPedido, Usuario usuario, Date dtPedido, Date dtConclusao, String status, ArrayList<Item> itens, double valTotal){
+		this.nPedido = nPedido;
 		this.usuario=usuario; 
 		this.dtPedido=dtPedido; 
 		this.dtConclusao=dtConclusao;
@@ -20,13 +22,18 @@ public class Pedido {
 		this.valTotal=valTotal;
 	}
   
-	public Pedido(Usuario usuario, Date dtPedido, ArrayList<Item> itens, double valTotal) {
+	public Pedido(int nPedido, Usuario usuario, Date dtPedido, ArrayList<Item> itens, double valTotal) {
+		this.nPedido = nPedido;
 		this.usuario = usuario;
 		this.dtPedido = dtPedido;
 		this.dtConclusao = null;
 		this.status = "aberto";
 		this.itens = itens;
 		this.valTotal = valTotal;
+	}
+
+	public int getNPedido(){
+		return nPedido;
 	}
 
 	public Usuario getUsuario() {
@@ -52,6 +59,5 @@ public class Pedido {
 	public double getValTotal() {
 		return valTotal;
 	}
-
 
 }
