@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Pedido {
-	private int nPedido;
+	private String id;
 	private Usuario usuario;
 	private Date dtPedido;
 	private Date dtConclusao;
@@ -12,9 +12,9 @@ public class Pedido {
 	private ArrayList<Item> itens;
 	private double valTotal;
 
-	public Pedido(int nPedido, Usuario usuario, Date dtPedido, Date dtConclusao, String status, ArrayList<Item> itens, double valTotal){
-		this.nPedido = nPedido;
-		this.usuario=usuario; 
+	public Pedido(String id, Usuario usuario , Date dtPedido, Date dtConclusao, String status, ArrayList<Item> itens, double valTotal){
+		this.id = id;
+		this.usuario = usuario;
 		this.dtPedido=dtPedido; 
 		this.dtConclusao=dtConclusao;
 		this.status=status;
@@ -22,8 +22,8 @@ public class Pedido {
 		this.valTotal=valTotal;
 	}
   
-	public Pedido(int nPedido, Usuario usuario, Date dtPedido, ArrayList<Item> itens, double valTotal) {
-		this.nPedido = nPedido;
+	public Pedido(String id, Usuario usuario, Date dtPedido, ArrayList<Item> itens, double valTotal) {
+		this.id = id;
 		this.usuario = usuario;
 		this.dtPedido = dtPedido;
 		this.dtConclusao = null;
@@ -32,8 +32,11 @@ public class Pedido {
 		this.valTotal = valTotal;
 	}
 
-	public int getNPedido(){
-		return nPedido;
+	public Pedido(Usuario usuario, Date d, ArrayList<Item> itens, double valorTotal) {
+	}
+
+	public String getId(){
+		return id;
 	}
 
 	public Usuario getUsuario() {
@@ -56,8 +59,11 @@ public class Pedido {
 		return itens;
 	}
 
-	public double getValTotal() {
+	public double getValorTotal(ArrayList<Item> itens){
+		double valTotal = 0.0;
+		for(Item i : itens){
+			valTotal += i.getValUnitario();
+		}
 		return valTotal;
 	}
-
 }
