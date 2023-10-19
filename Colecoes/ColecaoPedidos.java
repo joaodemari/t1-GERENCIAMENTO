@@ -46,4 +46,16 @@ public class ColecaoPedidos {
         }
         return retorno;
     }
+
+    public ArrayList<Pedido> buscaPedidoPorNumero(int nPedido) {
+        ArrayList<Pedido> retorno = new ArrayList<>();
+        for (Pedido pedido : pedidos) {
+            for (Pedido nPedido : pedidos) {
+                if (pedido.getNPedido()) {
+                    retorno.add(pedido);
+                }
+            }
+        }
+        return retorno;
+    }
 }
