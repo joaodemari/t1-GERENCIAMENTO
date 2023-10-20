@@ -31,19 +31,19 @@ public class ACMEEmpresa {
     public void executa() {
         // Criando alguns objetos de exemplo
         Administrador a = new Administrador("João", "123", "123456");
-        Funcionario f2 = new Funcionario("Pedro", "789", "345678");
-        Funcionario f3 = new Funcionario("Alice", "789", "123456");
-        Funcionario f4 = new Funcionario("Bob", "012", "567890");
-        Funcionario f5 = new Funcionario("Eve", "345", "678901");
-        Funcionario f6 = new Funcionario("Charlie", "901", "234567");
-        Funcionario f7 = new Funcionario("David", "234", "456789");
-        Funcionario f8 = new Funcionario("Grace", "567", "890123");
-        Funcionario f9 = new Funcionario("Hannah", "678", "901234");
-        Funcionario f10 = new Funcionario("Isabel", "789", "012345");
-        Funcionario f11 = new Funcionario("James", "890", "123456");
-        Funcionario f13 = new Funcionario("Lily", "456", "567890");
-        Funcionario f14 = new Funcionario("Michael", "567", "678901");
-        Funcionario f15 = new Funcionario("Nina", "678", "789012");
+        Funcionario f2 = new Funcionario("Pedro", "789", "345678", "RH");
+        Funcionario f3 = new Funcionario("Alice", "789", "123456", "Financeiro");
+        Funcionario f4 = new Funcionario("Bob", "012", "567890", "RH");
+        Funcionario f5 = new Funcionario("Eve", "345", "678901", "Engenharia");
+        Funcionario f6 = new Funcionario("Charlie", "901", "234567", "Manutenção");
+        Funcionario f7 = new Funcionario("David", "234", "456789", "RH");
+        Funcionario f8 = new Funcionario("Grace", "567", "890123", "Financeiro");
+        Funcionario f9 = new Funcionario("Hannah", "678", "901234", "Marketing");
+        Funcionario f10 = new Funcionario("Isabel", "789", "012345", "Engenharia");
+        Funcionario f11 = new Funcionario("James", "890", "123456", "Marketing");
+        Funcionario f13 = new Funcionario("Lily", "456", "567890", "Engenharia");
+        Funcionario f14 = new Funcionario("Michael", "567", "678901", "Manutenção");
+        Funcionario f15 = new Funcionario("Nina", "678", "789012", "Engenharia");
 
         // Add the additional Funcionario objects to the ColecaoUsuarios
         usuarios.addUser(f3);
