@@ -63,7 +63,7 @@ public class ColecaoPedidos {
 public Pedido buscaPedidoPorDepartamento(String id) {
         Pedido p = null;
         for (Pedido pedido : pedidos) {
-            if (pedido.getId().equals(id)) {
+            if (pedido.getDepartamento().equals(id)) {
                 p = pedido;
                 break;
             }
