@@ -15,14 +15,14 @@ import bean.Funcionario;
 public class ACMEEmpresa {
     private Scanner entrada;
     private ColecaoUsuarios usuarios;
-    private Usuario Logado;
+    private Usuario usuario;
     private ColecaoPedidos pedidos;
 
     public ACMEEmpresa() {
         entrada = new Scanner(System.in);
         usuarios = new ColecaoUsuarios();
         pedidos = new ColecaoPedidos();
-        this.Logado = null;
+        this.usuario = null;
     }
 
     public void executa() {
@@ -36,18 +36,18 @@ public class ACMEEmpresa {
         Item i4 = new Item("Borracha", "Borracha branca", 0.3, 15);
         Item i5 = new Item("Mochila", "Mochila escolar", 50.0, 2);
         Item i6 = new Item("Estojo", "Estojo escolar", 5.0, 5);
-        ColecaoItens itens1 = new ColecaoItens();
-        itens1.addItem(i1);
-        itens1.addItem(i2);
-        itens1.addItem(i3);
+        ArrayList<Item> itens1 = new ArrayList<>();
+        itens1.add(i1);
+        itens1.add(i2);
+        itens1.add(i3);
         ColecaoItens itens2 = new ColecaoItens();
         itens2.addItem(i4);
         itens2.addItem(i5);
         itens2.addItem(i6);
         Date d1 = new Date();
         Date d2 = new Date(d1.getTime() + 3600000);
-        Pedido p1 = new Pedido(f1, d1, itens1.getItens(), 0.0);
-        Pedido p2 = new Pedido(f2, d2, itens2.getItens(), 0.0);
+        Pedido p1 = new Pedido("1", f1, d1, itens1, 0.0);
+        Pedido p2 = new Pedido("2", f2, d2, itens2.getItens(), 0.0);
         pedidos.addPedido(p1);
         pedidos.addPedido(p2);
         usuarios.addUser(a);
@@ -96,7 +96,7 @@ public class ACMEEmpresa {
         String senha = entrada.next();
         if (found.getSenha().equals(senha)) {
             System.out.println("Login efetuado com sucesso!");
-            this.Logado = found;
+            this.usuario = found;
             menuPrincipal();
         } else {
             System.out.println("Senha incorreta! Tente novamente.");
@@ -149,7 +149,7 @@ public class ACMEEmpresa {
         }
         double valorTotal = 0.0;
         Date d = new Date();
-        Pedido p = new Pedido(Logado, d, itensPedido.getItens(), valorTotal);
+        Pedido p = new Pedido(usuario, d, itensPedido.getItens(), valorTotal);
         pedidos.addPedido(p);
         System.out.println("Pedido registrado com sucesso!");
     }
@@ -247,9 +247,49 @@ public class ACMEEmpresa {
         }
     }
 
-    private void visualizarDetalhesPedido() {
-        // TODO: Implementar lógica de visualização de detalhes de um pedido para
-        // aprovação ou rejeição
-        System.out.println("Detalhes do pedido:");
+    private void visualizarDetalhesPedido(){
+        System.out.println("Digite o número do pedido: ");
+        int cont = 0;
+        String id = entrada.next();
+        Pedido pedido = pedidos.buscaPedidoPorNumero(id);
+        System.out.println("---------------------------------------");
+        System.out.println("Detalhes do pedido n° " + pedido.getId());
+        System.out.println("---------------------------------------");
+        System.out.println("Usuário: " + pedido.getUsuario().getNome());
+        System.out.println("Data: " + pedido.getDtPedido());
+        System.out.println("Status: " + pedido.getStatus());
+        for(Item i : pedido.getItens()){
+            System.out.println("Item " + cont++ + " : " + i.getNome());
+        }
+        System.out.println("Valor total: R$" + pedido.getValorTotal(pedido.getItens()));
     }
+/**
+ private void visualizarDetalhesPedido() {
+ ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId());
+ int count =1;
+ for (Pedido b : Busca) {
+ System.out.println("Número do pedido: " + b.getNPedido());
+ System.out.println("Funcionário que cadastrou: " + b.getUsuario());
+ System.out.println("Data: " + b.getDtPedido());
+ System.out.println("Status: " + b.getStatus());
+ System.out.println("Valor total do pedido: " + b.getValTotal());
+ ArrayList<Item> itens = b.getItens();
+ for (Item q : itens) {
+ System.out.println("Itens do pedido: " + q.getNome());
+ }
+ count++;
+ }
+
+ System.out.println("Digite o número do pedido que deseja atualizar:");
+ int proxNum = entrada.nextInt();
+
+ if(this.nPedido==proxNum){
+ Pedido pedidoBuscado = buscaPedidoPorNumero(proxNum);
+
+ return pedidoBuscado;
+ }else{
+ return "Pedido não encontrado";
+ }
+ }
+ **/
 }

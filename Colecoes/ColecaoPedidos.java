@@ -45,4 +45,16 @@ public class ColecaoPedidos {
         }
         return retorno;
     }
+
+    public Pedido buscaPedidoPorNumero(String id) {
+        Pedido p = null;
+        for (Pedido pedido : pedidos) {
+            if (pedido.getId().equals(id)) {
+               p = pedido;
+               break;
+            }
+        }
+        return p;
+    }
+
 }
