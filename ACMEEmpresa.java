@@ -264,7 +264,8 @@ import java.util.Date;
              System.out.println("[1] Listar todos os pedidos entre duas datas"); 
              System.out.println("[2] Buscar pedidos por funcionário solicitante"); 
              System.out.println("[3] Buscar pedidos pela descrição de um item"); 
-             System.out.println("[4] Visualizar os detalhes de um pedido para aprová-lo ou rejeitá-lo"); 
+             System.out.println("[4] Buscar pedidos por departamento");
+             System.out.println("[5] Visualizar os detalhes de um pedido para aprová-lo ou rejeitá-lo"); 
              opc = entrada.nextInt(); 
              switch (opc) { 
                  case 0: 
@@ -279,7 +280,10 @@ import java.util.Date;
                  case 3: 
                      buscarPedidosPorItem(); 
                      break; 
-                 case 4: 
+                 case 4:
+                    buscaPedidoPorDepartamento();
+                    break;
+                 case 5: 
                      visualizarDetalhesPedido(); 
                      break; 
                  default: 
@@ -354,6 +358,28 @@ import java.util.Date;
              } 
          } 
      } 
+
+     private void buscarPedidoPorDepartamento() { 
+         System.out.println("Digite o nome do departamento"); 
+         String id = entrada.next(); 
+         ArrayList<Pedido> Busca = pedidos.buscarPedidoPorDepartamento(id); 
+         if (Busca == null) { 
+             System.out.println("Nenhum pedido encontrado."); 
+         } else { 
+             System.out.println("Pedidos encontrados:"); 
+             for (Pedido p : Busca) { 
+                 System.out.println("------------------------------------------------"); 
+                 System.out.println("Detalhes do pedido do departamento" + p.getDepartamento()); 
+                 System.out.println("------------------------------------------------"); 
+                 System.out.println("Data: " + p.getDtPedido()); 
+                 System.out.println("Status: " + p.getStatus()); 
+                 ArrayList<Item> itens = p.getItens(); 
+                 for (Item q : itens) { 
+                     System.out.println("Itens do pedido: " + q.getNome()); 
+                 } 
+             } 
+         } 
+     } 
   
      private void buscarPedidosPorItem() { 
          System.out.println("Digite o nome do item:"); 
@@ -393,31 +419,7 @@ import java.util.Date;
          } 
          System.out.println("Valor total: R$" + pedido.getValorTotal(pedido.getItens())); 
      } 
-     /** 
-      * private void visualizarDetalhesPedido() { 
-      * ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId()); 
-      * int count =1; 
-      * for (Pedido b : Busca) { 
-      * System.out.println("Número do pedido: " + b.getNPedido()); 
-      * System.out.println("Funcionário que cadastrou: " + b.getUsuario()); 
-      * System.out.println("Data: " + b.getDtPedido()); 
-      * System.out.println("Status: " + b.getStatus()); 
-      * System.out.println("Valor total do pedido: " + b.getValTotal()); 
-      * ArrayList<Item> itens = b.getItens(); 
-      * for (Item q : itens) { 
-      * System.out.println("Itens do pedido: " + q.getNome()); 
-      * } 
-      * count++; 
-      * } 
-      *  
-      * System.out.println("Digite o número do pedido que deseja atualizar:"); 
-      * int proxNum = entrada.nextInt(); 
-      *  
-      * if(this.nPedido==proxNum){ 
-      * Pedido pedidoBuscado = buscaPedidoPorNumero(proxNum); 
-      *  
-      * return pedidoBuscado; 
-      * }else{ 
+ }
       * return "Pedido não encontrado"; 
       * } 
       * } 
