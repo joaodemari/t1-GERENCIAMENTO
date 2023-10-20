@@ -1,6 +1,9 @@
 package Colecoes;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+
 import Colecoes.ColecaoUsuarios;
 import bean.Item;
 import bean.Pedido;
@@ -50,8 +53,8 @@ public class ColecaoPedidos {
         Pedido p = null;
         for (Pedido pedido : pedidos) {
             if (pedido.getId().equals(id)) {
-               p = pedido;
-               break;
+                p = pedido;
+                break;
             }
         }
         return p;

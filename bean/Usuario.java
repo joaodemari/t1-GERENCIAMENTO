@@ -4,11 +4,13 @@ public class Usuario {
     private String nome;
     private String id;
     private String senha;
+    protected boolean isAdmin;
 
     public Usuario(String nome, String id, String senha) {
         this.nome = nome;
         this.id = id;
         this.senha = senha;
+        this.isAdmin = false;
     }
 
     public String getNome() {
@@ -21,6 +23,10 @@ public class Usuario {
 
     public String getSenha() {
         return senha;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
     // Criei uma classe usuário de exemplo que pode estar logado ou não
 }
