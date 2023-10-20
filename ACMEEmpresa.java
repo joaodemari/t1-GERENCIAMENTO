@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.DateFormat;
 import java.util.Scanner;
@@ -101,13 +102,41 @@ public class ACMEEmpresa {
         if (found.getSenha().equals(senha)) {
             System.out.println("Login efetuado com sucesso!");
             this.usuario = found;
-            menuPrincipal();
-        } else {
+            if (usuario instanceof Administrador) {
+                menuADM();
+            } else if (usuario instanceof Funcionario){
+                menuFuncionario();
+            }
             System.out.println("Senha incorreta! Tente novamente.");
         }
     }
 
-    private void menuPrincipal() {
+    private void menuFuncionario() {
+        int opc = 1;
+        while (opc != 0) {
+            System.out.println("[0] Deslogar do Sistema");
+            System.out.println("[1] Registrar um novo pedido de aquisição");
+            System.out.println("[2] Deletar pedido");
+            opc = entrada.nextInt();
+            switch (opc) {
+                case 0:
+                    System.out.println("Deslogando do sistema...");
+                    break;
+                case 1:
+                    registrarPedido();
+                    break;
+                case 2:
+
+                    break;
+            }
+        }
+    }
+
+    private void removePedidoDoFuncionario(){
+
+    }
+
+    private void menuADM() {
         int opc = 1;
         while (opc != 0) {
             System.out.println("[0] Deslogar do Sistema");
@@ -173,7 +202,7 @@ public class ACMEEmpresa {
                     break;
                 case 1:
                     listarPedidosEntreDatas();
-                   break;
+                    break;
                 case 2:
                     buscarPedidosPorFuncionario();
                     break;
@@ -190,50 +219,58 @@ public class ACMEEmpresa {
     }
 
     // Método implementado;
-  private void listarPedidosEntreDatas() {
-    DateFormat f = DateFormat.getDateInstance(); 
-    System.out.println("Digite a data de início: ");
-    String inicio = entrada.next();
-    System.out.println("Digite a data limite: ");
-    String limite = entrada.next();
-  
-    try {
-        Date dataInicio = f.parse(inicio);
-        Date dataFinal = f.parse(limite);
+    private void listarPedidosEntreDatas() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println("Digite o dia de início: ");
+        String dia = entrada.next();
+        System.out.println("Digite o mes de início: ");
+        String mes = entrada.next();
+        System.out.println("Digite o ano de início: ");
+        String ano = entrada.next();
+        System.out.println("Digite o dia de fim: ");
+        String diaFim = entrada.next();
+        System.out.println("Digite o mes de fim: ");
+        String mesFim = entrada.next();
+        System.out.println("Digite o ano de fim: ");
+        String anoFim = entrada.next();
 
-        if (dataInicio.compareTo(dataFinal) > 0) {
-            System.out.println("Datas inválidas.");
-            return;
-        }
+        try {
 
-        ArrayList<Pedido> pedidosData = new ArrayList<>();
-        for (Pedido p : pedidos.getPedidos()) {
-            if (p.getDtConclusao().after(dataInicio) && p.getDtConclusao().before(dataFinal)) {
-                pedidosData.add(p);
+            Date dataInicio = dateFormat.parse(String.format("%02d/%02d/%04d", dia, mes, ano));
+            Date dataFinal = dateFormat.parse(String.format("%02d/%02d/%04d", diaFim, mesFim, anoFim));
+
+
+
+            if (dataInicio.compareTo(dataFinal) > 0) {
+                System.out.println("Datas inválidas.");
+                return;
             }
-        }
 
-        System.out.println("Pedidos encontrados entre as datas:");
-        for (Pedido pedido : pedidosData) {
-            System.out.println("Detalhes do pedido:");
-            System.out.println("ID do pedido: " + pedido.getId()); 
-            System.out.println("Data de conclusão: " + pedido.getDtConclusao()); 
-            System.out.println("Itens: " + pedido.getItens());
-            System.out.println("---------------------------------------");
+            ArrayList<Pedido> pedidosData = new ArrayList<>();
+            for (Pedido p : pedidos.getPedidos()) {
+                if (p.getDtConclusao().after(dataInicio) && p.getDtConclusao().before(dataFinal)) {
+                    pedidosData.add(p);
+                }
+            }
+
+            System.out.println("Pedidos encontrados entre as datas:");
+            for (Pedido pedido : pedidosData) {
+                System.out.println("Detalhes do pedido:");
+                System.out.println("ID do pedido: " + pedido.getId());
+                System.out.println("Data de conclusão: " + pedido.getDtConclusao());
+                System.out.println("Itens: " + pedido.getItens());
+                System.out.println("---------------------------------------");
+            }
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido. Certifique-se de usar o formato correto.");
+            e.printStackTrace();
         }
-    } catch (ParseException e) {
-        System.out.println("Formato de data inválido. Certifique-se de usar o formato correto.");
-        e.printStackTrace(); 
     }
-}
-
-}
-     
 
     private void buscarPedidosPorFuncionario() {
         System.out.println("Digite o id do funcionário");
         String id = entrada.next();
-        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(usuarios.getUsuarios(), id);
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(id);
         if (Busca == null) {
             System.out.println("Nenhum pedido encontrado.");
         } else {

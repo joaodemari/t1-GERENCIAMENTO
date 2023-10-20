@@ -50,11 +50,10 @@ public class ColecaoPedidos {
         Pedido p = null;
         for (Pedido pedido : pedidos) {
             if (pedido.getId().equals(id)) {
-               p = pedido;
-               break;
+                p = pedido;
+                break;
             }
         }
         return p;
     }
-
 }
