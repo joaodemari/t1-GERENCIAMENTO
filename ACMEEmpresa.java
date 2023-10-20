@@ -290,7 +290,7 @@ public class ACMEEmpresa {
         }
         System.out.println("Valor total: R$" + pedido.getValorTotal(pedido.getItens()));
     }
-/**
+
  private void visualizarDetalhesPedido() {
  ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId());
  int count =1;
@@ -318,5 +318,3 @@ public class ACMEEmpresa {
  return "Pedido não encontrado";
  }
  }
- **/
-}
