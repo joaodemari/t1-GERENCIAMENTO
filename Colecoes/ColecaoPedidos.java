@@ -35,14 +35,13 @@ public class ColecaoPedidos {
         return retorno;
     }
 
-    public ArrayList<Pedido> buscaPedidoPorFuncionario(ArrayList<Usuario> usuarios, String id) {
+    public ArrayList<Pedido> buscaPedidoPorFuncionario(String id) {
         ArrayList<Pedido> retorno = new ArrayList<>();
         for (Pedido pedido : pedidos) {
-            for (Usuario u : usuarios) {
-                if (pedido.getUsuario().getId().equals(u.getId())) {
-                    retorno.add(pedido);
-                }
+            if (pedido.getUsuario().getId().equals(id)) {
+                retorno.add(pedido);
             }
+
         }
         return retorno;
     }
