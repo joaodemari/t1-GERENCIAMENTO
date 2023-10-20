@@ -7,4 +7,8 @@ public class Funcionario extends Usuario {
         super(nome, id, senha);
         this.departamento = departamento;
     }
+
+    public String getDepartamento(){
+       return departamento;
+    }
 }

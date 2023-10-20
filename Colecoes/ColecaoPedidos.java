@@ -59,5 +59,15 @@ public class ColecaoPedidos {
         }
         return p;
     }
-
+  
+public Pedido buscaPedidoPorDepartamento(String id) {
+        Pedido p = null;
+        for (Pedido pedido : pedidos) {
+            if (pedido.getDepartamento().equals(id)) {
+                p = pedido;
+                break;
+            }
+        }
+        return p;
+    }
 }
