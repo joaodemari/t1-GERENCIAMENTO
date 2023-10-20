@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.text.DateFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -11,6 +12,9 @@ import bean.Item;
 import bean.Pedido;
 import bean.Usuario;
 import bean.Funcionario;
+
+import java.text.ParseException;
+
 
 public class ACMEEmpresa {
     private Scanner entrada;
@@ -167,9 +171,9 @@ public class ACMEEmpresa {
                 case 0:
                     System.out.println("Voltando ao Menu Anterior (Administrador)...");
                     break;
-                // case 1:
-                // listarPedidosEntreDatas(Date dataFim, Date dataInicio);
-                // break;
+                case 1:
+                    listarPedidosEntreDatas();
+                   break;
                 case 2:
                     buscarPedidosPorFuncionario();
                     break;
@@ -185,23 +189,46 @@ public class ACMEEmpresa {
         }
     }
 
-    /**
-     * private ArrayList<ColecaoPedidos> listarPedidosEntreDatas(Date dataInicio,
-     * Date dataFim) {
-     * ArrayList pedidosData = new ArrayList();
-     * if(dataInicio.compareTo(dataFim) > 0){
-     * System.out.println("Datas inválidas.");
-     * return pedidosData;
-     * }
-     * for(Pedido p : pedidos.getPedidos()){
-     * if(p.getDtConclusao().compareTo(dataInicio) >= 0 &&
-     * p.getDtConclusao().compareTo(dataFim) <= 0){
-     * pedidosData.add(p);
-     * }
-     * }
-     * return pedidosData;
-     * }
-     **/
+    
+  private void listarPedidosEntreDatas() {
+    DateFormat f = DateFormat.getDateInstance(); 
+    System.out.println("Digite a data de início: ");
+    String inicio = entrada.next();
+    System.out.println("Digite a data limite: ");
+    String limite = entrada.next();
+
+    try {
+        Date dataInicio = f.parse(inicio);
+        Date dataFinal = f.parse(limite);
+
+        if (dataInicio.compareTo(dataFinal) > 0) {
+            System.out.println("Datas inválidas.");
+            return;
+        }
+
+        ArrayList<Pedido> pedidosData = new ArrayList<>();
+        for (Pedido p : pedidos.getPedidos()) {
+            if (p.getDtConclusao().after(dataInicio) && p.getDtConclusao().before(dataFinal)) {
+                pedidosData.add(p);
+            }
+        }
+
+        System.out.println("Pedidos encontrados entre as datas:");
+        for (Pedido pedido : pedidosData) {
+            System.out.println("Detalhes do pedido:");
+            System.out.println("ID do pedido: " + pedido.getId()); 
+            System.out.println("Data de conclusão: " + pedido.getDtConclusao()); 
+            System.out.println("Itens: " + pedido.getItens());
+            System.out.println("---------------------------------------");
+        }
+    } catch (ParseException e) {
+        System.out.println("Formato de data inválido. Certifique-se de usar o formato correto.");
+        e.printStackTrace(); 
+    }
+}
+
+}
+     
 
     private void buscarPedidosPorFuncionario() {
         System.out.println("Digite o id do funcionário");
