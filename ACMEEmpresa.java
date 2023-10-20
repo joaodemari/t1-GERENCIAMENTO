@@ -15,7 +15,6 @@ import bean.Funcionario;
 
 import java.text.ParseException;
 
-
 public class ACMEEmpresa {
     private Scanner entrada;
     private ColecaoUsuarios usuarios;
@@ -112,6 +111,13 @@ public class ACMEEmpresa {
         while (opc != 0) {
             System.out.println("[0] Deslogar do Sistema");
             System.out.println("[1] Registrar um novo pedido de aquisição");
+            // se usuario logado for funcionario ->
+            if (usuario instanceof Funcionario) {
+                System.out.println("[2] Ver meus últimos pedidos");
+            }
+            if (usuario instanceof Administrador) {
+                System.out.println("[2] Pedidos (Menu Pedidos)");
+            }
             System.out.println("[2] Pedidos (Menu Pedidos)");
             opc = entrada.nextInt();
             switch (opc) {
@@ -122,11 +128,34 @@ public class ACMEEmpresa {
                     registrarPedido();
                     break;
                 case 2:
-                    menuPedidos();
+                    if (usuario instanceof Funcionario) {
+                        verPedidosFuncionario();
+                    }
+                    if (usuario instanceof Administrador) {
+                        menuPedidos();
+                    }
                     break;
                 default:
                     System.out.println("Entrada inválida.");
             }
+        }
+    }
+
+    private void verPedidosFuncionario() {
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(usuario.getId());
+        int count = 1;
+        for (Pedido b : Busca) {
+            System.out.println("------------------------------------------------");
+            System.out.println("Detalhes do pedido n° " + b.getId());
+            System.out.println("------------------------------------------------");
+            System.out.println("Data: " + b.getDtPedido());
+            System.out.println("Status: " + b.getStatus());
+            System.out.println("Valor total do pedido: " + b.getValorTotal(b.getItens()));
+            ArrayList<Item> itens = b.getItens();
+            for (Item q : itens) {
+                System.out.println("Itens do pedido: " + q.getNome());
+            }
+            count++;
         }
     }
 
@@ -173,7 +202,7 @@ public class ACMEEmpresa {
                     break;
                 case 1:
                     listarPedidosEntreDatas();
-                   break;
+                    break;
                 case 2:
                     buscarPedidosPorFuncionario();
                     break;
@@ -190,50 +219,47 @@ public class ACMEEmpresa {
     }
 
     // Método implementado;
-  private void listarPedidosEntreDatas() {
-    DateFormat f = DateFormat.getDateInstance(); 
-    System.out.println("Digite a data de início: ");
-    String inicio = entrada.next();
-    System.out.println("Digite a data limite: ");
-    String limite = entrada.next();
-  
-    try {
-        Date dataInicio = f.parse(inicio);
-        Date dataFinal = f.parse(limite);
+    private void listarPedidosEntreDatas() {
+        DateFormat f = DateFormat.getDateInstance();
+        System.out.println("Digite a data de início: ");
+        String inicio = entrada.next();
+        System.out.println("Digite a data limite: ");
+        String limite = entrada.next();
 
-        if (dataInicio.compareTo(dataFinal) > 0) {
-            System.out.println("Datas inválidas.");
-            return;
-        }
+        try {
+            Date dataInicio = f.parse(inicio);
+            Date dataFinal = f.parse(limite);
 
-        ArrayList<Pedido> pedidosData = new ArrayList<>();
-        for (Pedido p : pedidos.getPedidos()) {
-            if (p.getDtConclusao().after(dataInicio) && p.getDtConclusao().before(dataFinal)) {
-                pedidosData.add(p);
+            if (dataInicio.compareTo(dataFinal) > 0) {
+                System.out.println("Datas inválidas.");
+                return;
             }
-        }
 
-        System.out.println("Pedidos encontrados entre as datas:");
-        for (Pedido pedido : pedidosData) {
-            System.out.println("Detalhes do pedido:");
-            System.out.println("ID do pedido: " + pedido.getId()); 
-            System.out.println("Data de conclusão: " + pedido.getDtConclusao()); 
-            System.out.println("Itens: " + pedido.getItens());
-            System.out.println("---------------------------------------");
+            ArrayList<Pedido> pedidosData = new ArrayList<>();
+            for (Pedido p : pedidos.getPedidos()) {
+                if (p.getDtConclusao().after(dataInicio) && p.getDtConclusao().before(dataFinal)) {
+                    pedidosData.add(p);
+                }
+            }
+
+            System.out.println("Pedidos encontrados entre as datas:");
+            for (Pedido pedido : pedidosData) {
+                System.out.println("Detalhes do pedido:");
+                System.out.println("ID do pedido: " + pedido.getId());
+                System.out.println("Data de conclusão: " + pedido.getDtConclusao());
+                System.out.println("Itens: " + pedido.getItens());
+                System.out.println("---------------------------------------");
+            }
+        } catch (ParseException e) {
+            System.out.println("Formato de data inválido. Certifique-se de usar o formato correto.");
+            e.printStackTrace();
         }
-    } catch (ParseException e) {
-        System.out.println("Formato de data inválido. Certifique-se de usar o formato correto.");
-        e.printStackTrace(); 
     }
-}
-
-}
-     
 
     private void buscarPedidosPorFuncionario() {
         System.out.println("Digite o id do funcionário");
         String id = entrada.next();
-        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(usuarios.getUsuarios(), id);
+        ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(id);
         if (Busca == null) {
             System.out.println("Nenhum pedido encontrado.");
         } else {
@@ -274,7 +300,7 @@ public class ACMEEmpresa {
         }
     }
 
-    private void visualizarDetalhesPedido(){
+    private void visualizarDetalhesPedido() {
         System.out.println("Digite o número do pedido: ");
         int cont = 0;
         String id = entrada.next();
@@ -285,38 +311,38 @@ public class ACMEEmpresa {
         System.out.println("Usuário: " + pedido.getUsuario().getNome());
         System.out.println("Data: " + pedido.getDtPedido());
         System.out.println("Status: " + pedido.getStatus());
-        for(Item i : pedido.getItens()){
+        for (Item i : pedido.getItens()) {
             System.out.println("Item " + cont++ + " : " + i.getNome());
         }
         System.out.println("Valor total: R$" + pedido.getValorTotal(pedido.getItens()));
     }
-/**
- private void visualizarDetalhesPedido() {
- ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId());
- int count =1;
- for (Pedido b : Busca) {
- System.out.println("Número do pedido: " + b.getNPedido());
- System.out.println("Funcionário que cadastrou: " + b.getUsuario());
- System.out.println("Data: " + b.getDtPedido());
- System.out.println("Status: " + b.getStatus());
- System.out.println("Valor total do pedido: " + b.getValTotal());
- ArrayList<Item> itens = b.getItens();
- for (Item q : itens) {
- System.out.println("Itens do pedido: " + q.getNome());
- }
- count++;
- }
-
- System.out.println("Digite o número do pedido que deseja atualizar:");
- int proxNum = entrada.nextInt();
-
- if(this.nPedido==proxNum){
- Pedido pedidoBuscado = buscaPedidoPorNumero(proxNum);
-
- return pedidoBuscado;
- }else{
- return "Pedido não encontrado";
- }
- }
- **/
+    /**
+     * private void visualizarDetalhesPedido() {
+     * ArrayList<Pedido> Busca = pedidos.buscaPedidoPorFuncionario(Logado.getId());
+     * int count =1;
+     * for (Pedido b : Busca) {
+     * System.out.println("Número do pedido: " + b.getNPedido());
+     * System.out.println("Funcionário que cadastrou: " + b.getUsuario());
+     * System.out.println("Data: " + b.getDtPedido());
+     * System.out.println("Status: " + b.getStatus());
+     * System.out.println("Valor total do pedido: " + b.getValTotal());
+     * ArrayList<Item> itens = b.getItens();
+     * for (Item q : itens) {
+     * System.out.println("Itens do pedido: " + q.getNome());
+     * }
+     * count++;
+     * }
+     * 
+     * System.out.println("Digite o número do pedido que deseja atualizar:");
+     * int proxNum = entrada.nextInt();
+     * 
+     * if(this.nPedido==proxNum){
+     * Pedido pedidoBuscado = buscaPedidoPorNumero(proxNum);
+     * 
+     * return pedidoBuscado;
+     * }else{
+     * return "Pedido não encontrado";
+     * }
+     * }
+     **/
 }
