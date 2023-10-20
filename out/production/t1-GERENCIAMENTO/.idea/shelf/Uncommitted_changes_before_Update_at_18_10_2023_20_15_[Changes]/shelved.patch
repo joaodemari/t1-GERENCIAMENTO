@@ -1,0 +1,18 @@
+Index: Colecoes/ColecaoPedidos.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package Colecoes;\r\n\r\nimport bean.Item;\r\nimport java.util.ArrayList;\r\nimport bean.Pedido;\r\n\r\npublic class ColecaoPedidos {\r\n\r\n    private ArrayList<Pedido> pedidos;\r\n\r\n    public ColecaoPedidos() {\r\n        pedidos = new ArrayList<Pedido>();\r\n    }\r\n\r\n    public boolean addPedido(Pedido p) {\r\n        return pedidos.add(p);\r\n    }\r\n\r\n    public ArrayList<Pedido> getPedidos() {\r\n        return pedidos;\r\n    }\r\n\r\n    public ArrayList<Pedido> buscaPedidosPorItem(String nome) {\r\n        ArrayList<Pedido> retorno = new ArrayList<>();\r\n        for (Pedido pedido : pedidos) {\r\n            System.out.println(\"Pedido: \" + pedido.getUsuario().getNome());\r\n            ArrayList<Item> itens = pedido.getItens();\r\n            for (Item it : itens) {\r\n                System.out.println(\"Item: \" + it.getNome());\r\n                if (it.getNome().contains(nome)) {\r\n                    retorno.add(pedido);\r\n                }\r\n            }\r\n        }\r\n        return pedidos;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Colecoes/ColecaoPedidos.java b/Colecoes/ColecaoPedidos.java
+--- a/Colecoes/ColecaoPedidos.java	(revision ee5aefa66cbfa48bd0cfadcd5bf852bbf3eb08b6)
++++ b/Colecoes/ColecaoPedidos.java	(date 1697670882953)
+@@ -32,6 +32,6 @@
+                 }
+             }
+         }
+-        return pedidos;
++        return retorno;
+     }
+ }

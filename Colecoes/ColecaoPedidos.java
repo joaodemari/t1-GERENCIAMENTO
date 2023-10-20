@@ -59,7 +59,7 @@ public class ColecaoPedidos {
         }
         return p;
     }
-
+  
 public Pedido buscaPedidoPorDepartamento(String id) {
         Pedido p = null;
         for (Pedido pedido : pedidos) {
